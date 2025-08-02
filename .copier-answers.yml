@@ -1,0 +1,18 @@
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Changes here will be overwritten by Copier
+# NEVER EDIT MANUALLY
+# INSTEAD: run a recopy or update command
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+_commit: db10b6d
+_src_path: https://github.com/caporaso-lab/plugin-template.git
+author_email: greg.caporaso@nau.edu
+author_name: Greg Caporaso
+license: BSD-3-Clause
+module_name: artifinder
+package_name: artifinder
+plugin_description: A Q2F-based Research Data Management (RDM) tool.
+plugin_name: artifinder
+plugin_short_description: 'Q2F RDM! '
+project_url: https://library.qiime2.org/plugins/
+target_distro: tiny
