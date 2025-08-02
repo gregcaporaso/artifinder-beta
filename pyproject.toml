@@ -11,8 +11,8 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "https://library.qiime2.org/plugins/"
 
-[project.entry-points.'qiime2.plugins']
-"artifinder" = "artifinder.plugin_setup:plugin"
+[project.scripts]
+artifinder = "artifinder.scripts._artifinder:main_cli"
 
 [build-system]
 requires = [

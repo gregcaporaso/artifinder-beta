@@ -1,6 +1,36 @@
 # artifinder
 
-A [QIIME 2](https://qiime2.org) plugin [developed](https://develop.qiime2.org) by Greg Caporaso (greg.caporaso@nau.edu). 🔌
+A [QIIME 2 Framework (Q2F)](https://qiime2.org) Research Data Management (RDM) tool [developed](https://develop.qiime2.org) by Greg Caporaso (greg.caporaso@nau.edu). 📚
+
+`artifinder` is designed to help you identify [Q2F `Results`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-result) that are relevant to your analysis from a directory that might contain a mix of relevant and irrelevant `Result` files.
+This can be useful when:
+ 1. you're getting to the end of a complex analysis and need to compile relevant [QIIME 2 `Artifacts`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-artifact) for inclusion with a manuscript;
+ 2. you're picking up an analysis that someone left off on, and your struggling to make sense of which files were used for what (and which files have a date with the compost bin);
+ 3. and probably other applications.
+
+ For example, given a **target** `Result` (`ss-usage/Serial/hits-table.qzv` in the example that follows) and a search directory (`ss-usage`), `artifinder` provides you with absolute file paths to all of the QIIME 2 `Artifacts` that were used in the creation of the target.
+If an `Artifact` that was used is not found in the search path, that information is reported.
+
+```shell
+$ artifinder ss-usage/Serial/hits-table.qzv ss-usage
+
+Target `Result` UUID(s):
+ * 4e5df73c-a24e-4f02-b0a3-6ad1995fe5a7
+
+Predecessor `Results`:
+ * 4e5df73c-a24e-4f02-b0a3-6ad1995fe5a7
+  * Visualization
+  * /Users/jgc/temp/uq2/ss-usage/Serial/hits-table.qzv
+ * 3d410727-d6cc-4d97-bbbf-473954a25e4f
+  * FeatureData[Sequence]
+  * /Users/jgc/temp/uq2/ss-usage/Serial/query-seqs.qza
+ * 572a62ce-8ae4-442e-bfbf-e1e177ea767a
+  * FeatureData[Sequence]
+  * Result not found in search path.
+```
+
+`artifinder` is mostly untested at this point, aside from applications to some local data - it's just a simple utility script, after all.
+[Let me know](https://github.com/gregcaporaso/artifinder/issues) if it's not working for you or if you think have ideas for new functionality.
 
 ## Installation instructions
 
@@ -8,111 +38,32 @@ A [QIIME 2](https://qiime2.org) plugin [developed](https://develop.qiime2.org) b
 They will enable you to install the most recent *development* version of `artifinder`.
 Remember that *release* versions should be used for all "real" work (i.e., where you're not testing or prototyping) - if there aren't instructions for installing a release version of this plugin, it is probably not yet intended for use in practice.
 
-### Install Prerequisites
+1. Get conda installed.
+ Lately I've been using [Miniforge](https://github.com/conda-forge/miniforge) for this.
 
-[Miniconda](https://conda.io/miniconda.html) provides the `conda` environment and package manager, and is currently the only supported way to install QIIME 2.
-Follow the instructions for downloading and installing Miniconda.
+2. [Install a QIIME 2 distribution of your choice](https://library.qiime2.org/quickstart).
+ If you're just using artfinder, the `tiny` distro will work great.
+ It should work in most [plugin environments](https://library.qiime2.org/plugins) too.
+ Activate that environment.
 
-After installing Miniconda and opening a new terminal, make sure you're running the latest version of `conda`:
+3. Install the dev branch of the repository with the following command:
 
-```bash
-conda update conda
-```
+ ```shell
+ pip install https://github.com/gregcaporaso/artifinder/archive/refs/heads/dev.zip
+ ```
 
-###  Install development version of `artifinder`
+## Usage
 
-Next, you need to get into the top-level `artifinder` directory.
-If you already have this (e.g., because you just created the plugin), this may be as simple as running `cd artifinder`.
-If not, you'll need the `artifinder` directory on your computer.
-How you do that will differ based on how the package is shared, and ideally the developer will update these instructions to be more specific (remember, these instructions are intended to be a starting point).
-For example, if it's maintained in a GitHub repository, you can achieve this by [cloning the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
-Once you have the directory on your computer, change (`cd`) into it.
-
-If you're in a conda environment, deactivate it by running `conda deactivate`.
-
-
-Then, follow the install instructions below, based on your machine's architecture:
-
-<details>
-<summary><strong>🍏&nbsp;Apple Silicon (ARM)</strong></summary>
-<p>&nbsp;</p>
-
-Start by creating a new conda environment:
+You should then be able to use `artifinder` as follows:
 
 ```shell
-CONDA_SUBDIR=osx-64 conda env create -n artifinder-dev --file ./environment-files/artifinder-qiime2-tiny-dev.yml
+$ artifinder <target-result> <search-directory>
 ```
 
-After this completes, activate the new environment you created by running:
+For example:
 
 ```shell
-conda activate artifinder-dev
-```
-
-Once this new environment has been activated, update your conda config to set the subdir to osx-64:
-
-```shell
-conda config --env --set subdir osx-64
-```
-
-Finally, run:
-
-```shell
-make install
-```
-</details>
-
-<details>
-<summary><strong>🛠&nbsp;All other architectures (Apple Intel, Linux, WSL)</strong></summary>
-<p>&nbsp;</p>
-
-Start by creating a new conda environment:
-
-```shell
-conda env create -n artifinder-dev --file ./environment-files/artifinder-qiime2-tiny-dev.yml
-```
-
-After this completes, activate the new environment you created by running:
-
-```shell
-conda activate artifinder-dev
-```
-
-Finally, run:
-
-```shell
-make install
-```
-</details>
-
-## Testing and using the most recent development version of `artifinder`
-
-After completing the install steps above, confirm that everything is working as expected by running:
-
-```shell
-make test
-```
-
-You should get a report that tests were run, and you should see that all tests passed and none failed.
-It's usually ok if some warnings are reported.
-
-If all of the tests pass, you're ready to use the plugin.
-Start by making QIIME 2's command line interface aware of `artifinder` by running:
-
-```shell
-qiime dev refresh-cache
-```
-
-You should then see the plugin in the list of available plugins if you run:
-
-```shell
-qiime info
-```
-
-You should be able to review the help text by running:
-
-```shell
-qiime artifinder --help
+$ artifinder hits-table.qzv ss-usage
 ```
 
 Have fun! 😎
@@ -120,12 +71,5 @@ Have fun! 😎
 ## About
 
 The `artifinder` Python package was [created from a template](https://develop.qiime2.org/en/latest/plugins/tutorials/create-from-template.html).
-To learn more about `artifinder`, refer to the [project website](https://library.qiime2.org/plugins/).
-To learn how to use QIIME 2, refer to the [QIIME 2 User Documentation](https://docs.qiime2.org).
-To learn QIIME 2 plugin development, refer to [*Developing with QIIME 2*](https://develop.qiime2.org).
-
-`artifinder` is a QIIME 2 community plugin, meaning that it is not necessarily developed and maintained by the developers of QIIME 2.
-Please be aware that because community plugins are developed by the QIIME 2 developer community, and not necessarily the QIIME 2 developers themselves, some may not be actively maintained or compatible with current release versions of the QIIME 2 distributions.
-More information on development and support for community plugins can be found [here](https://library.qiime2.org).
-If you need help with a community plugin, first refer to the [project website](https://library.qiime2.org/plugins/).
-If that page doesn't provide information on how to get help, or you need additional help, head to the [Community Plugins category](https://forum.qiime2.org/c/community-contributions/community-plugins/14) on the QIIME 2 Forum where the QIIME 2 developers will do their best to help you.
+To learn how to use QIIME 2, refer to the [QIIME 2 User Documentation](https://use.qiime2.org).
+To learn QIIME 2 development, refer to [*Developing with QIIME 2*](https://develop.qiime2.org).
