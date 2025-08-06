@@ -8,12 +8,22 @@ import os.path
 from pathlib import Path
 
 import qiime2
+from qiime2.core.archive import Archiver
 from qiime2.core.archive.provenance_lib import ProvDAG
 
 from artifinder import __version__ as artifinder_version
 
 
 def _artifinder(target_result_fp, search_dir, verbose=True):
+
+    a = Archiver.get_archive(target_result_fp)
+    if float(a.version) >= 7.0:
+        raise ValueError(
+            "The target result is stored in an Archive Format >= 7.0, "
+            "and artifinder doesn't yet support those. You can track progress "
+            "on this here: "
+            "https://github.com/gregcaporaso/artifinder/issues/1")
+
     prov_dag = ProvDAG(target_result_fp, verbose=verbose)
 
     observed_uuids = {
