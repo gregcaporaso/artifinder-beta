@@ -1,8 +1,8 @@
-# artifinder 📚: a [QIIME 2 Framework (Q2F)](https://use.qiime2.org) Research Data Management tool
+# artifinder 📚: a `rachis` (formerly Q2F) Research Data Management tool
 
-`artifinder` is designed to help you find and identify [Q2F `Results`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-result) that are relevant to your analysis from a directory that might contain a mix of relevant and irrelevant `Result` files.
+`artifinder` is designed to help you find and identify `[rachis](https://news.rachis.org/en/latest/2025-10-23-q2f-transition.html)` (formerly Q2F) [`Results`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-result) that are relevant to your analysis from a directory that might contain a mix of relevant and irrelevant `Result` files.
 This can be useful when:
- 1. you're getting to the end of a complex analysis and need to compile relevant [QIIME 2 `Artifacts`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-artifact) for inclusion with a manuscript; or
+ 1. you're getting to the end of a complex analysis and need to compile relevant [`Artifacts`](https://use.qiime2.org/en/latest/back-matter/glossary.html#term-artifact) for inclusion with a manuscript; or
  2. you're picking up an analysis that someone left off on, and you're struggling to make sense of which files were used for what (and which files have a date with the compost bin).
 
 For example, given a **target** `Result` (`ss-usage/Serial/hits-table.qzv` in the example that follows) and a search directory (`ss-usage`), `artifinder` provides you with absolute file paths to all of the QIIME 2 `Artifacts` that were used in the creation of the target.
@@ -34,8 +34,8 @@ Predecessor `Results`:
 1. Get conda installed.
  I've most recently been using [Miniforge](https://github.com/conda-forge/miniforge) for this.
 
-2. Activate a Q2F environment of your choice, such as:
- a. an existing Q2F deployment, such as a amplicon or MOSPHIT installation;
+2. Activate a 2025.10 or later `[rachis](https://news.rachis.org/en/latest/2025-10-23-q2f-transition.html)` (formerly Q2F) environment of your choice, such as:
+ a. an existing Q2F deployment, such as a qiime2 (formerly amplicon) or MOSPHIT installation;
  b. a new deployment you create (e.g., a fresh install of the `tiny` distro following the *quickstart* steps on the [QIIME 2 Library](https://library.qiime2.org/quickstart/tiny) will work great); or
  c. a [plugin environment](https://library.qiime2.org/plugins), such as a [`q2-fmt` installation](https://library.qiime2.org/plugins/qiime2/q2-fmt).
 
@@ -63,7 +63,6 @@ Have fun! 😎
 
 ## About
 
-`artifinder` is a [QIIME 2 Framework (Q2F)](https://qiime2.org) Research Data Management (RDM) tool [developed](https://develop.qiime2.org) by [Greg Caporaso](https://cap-lab.bio). 📚
-The `artifinder` Python package was [created from a template](https://develop.qiime2.org/en/latest/plugins/tutorials/create-from-template.html).
-To learn how to use QIIME 2, refer to the [QIIME 2 User Documentation](https://use.qiime2.org).
-To learn to develop your own Q2F tools, refer to [*Developing with QIIME 2*](https://develop.qiime2.org).
+`artifinder` is developed by [Greg Caporaso](https://cap-lab.us). 📚
+The `artifinder` Python package was [created from a template](https://develop.qiime2.org/en/stable/plugins/tutorials/create-from-template.html).
+Learning resources and more at https://library.qiime2.org.
