@@ -21,17 +21,20 @@ def find(search_dir: str,
          verbose: bool = True,
          include_targets: bool = False,
          include_results_not_found: bool = False):
-
+    """
+    Find and identify rachis `Results` used in generating the target `Result`.
+    """
     target_result_fp = Path(target_result_fp)
     search_dir = Path(search_dir)
+
+    if not search_dir.exists():
+        raise FileNotFoundError("Search directory does not exist: "
+                                f"{search_dir}")
 
     if not target_result_fp.exists():
         raise FileNotFoundError("Target Result file path does not exist: "
                                 f"{target_result_fp}")
 
-    if not search_dir.exists():
-        raise FileNotFoundError("Search directory does not exist: "
-                                f"{search_dir}")
 
     # Store target information in a dict, which will easily allow for
     # supporting multiple input targets some day.

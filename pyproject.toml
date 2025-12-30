@@ -12,7 +12,7 @@ dynamic = ["version"]
 Homepage = "https://library.qiime2.org/plugins/"
 
 [project.scripts]
-artifinder = "artifinder.scripts.main:app"
+artifinder = "artifinder.main:app"
 
 [build-system]
 requires = [
